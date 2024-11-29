@@ -16,12 +16,72 @@ exports.getBalance = async (req, res) => {
     }
 };
 
+exports.getVip = async (req, res) => {
+    const userId = req.user.id;
+
+    try {
+        const user = await User.findById(userId, 'subscription balance');
+        if (!user) {
+            return res.status(404).json({ message: 'Пользователь не найден' });
+        }
+
+        const { isActive, startDate, durationDays } = user.subscription;
+        let subscriptionStatus = 'inactive';
+
+        if (isActive) {
+            const expirationDate = new Date(startDate);
+            expirationDate.setDate(expirationDate.getDate() + durationDays);
+
+            if (new Date() <= expirationDate) {
+                subscriptionStatus = 'active';
+            } else {
+                // Подписка истекла
+                user.subscription.isActive = false;
+                user.subscription.startDate = null;
+                user.subscription.durationDays = null;
+                await user.save();
+            }
+        }
+
+        res.status(200).json({
+            balance: user.balance,
+            subscription: {
+                status: user.subscription.isActive,
+                startDate: user.subscription.startDate,
+                durationDays: user.subscription.durationDays,
+            },
+        });
+    } catch (err) {
+        console.error('Ошибка проверки подписки:', err);
+        res.status(500).json({ message: 'Ошибка сервера' });
+    }
+};
+
+
+
+exports.getRole = async (req, res) => {
+    try {
+        const userId = req.user.id; // Предполагается, что ID пользователя есть в токене
+
+        const user = await User.findById(userId, 'role'); // Получаем только баланс
+        if (!user) {
+            return res.status(404).json({ message: 'Пользователь не найден' });
+        }
+
+        res.status(200).json({ role: user.role });
+    } catch (err) {
+        console.error('Ошибка получения баланса:', err);
+        res.status(500).json({ message: 'Ошибка сервера' });
+    }
+};
+
 exports.updateBalance = async (req, res) => {
     const { amount } = req.body; // `amount` может быть отрицательным для списания или положительным для пополнения
 
-    if (!amount || isNaN(amount)) {
-        return res.status(400).json({ message: 'Некорректное значение суммы' });
-    }
+
+    // if (!amount) {
+    //     return res.status(400).json({ message: 'Некорректное значение суммы' });
+    // }
 
     try {
         const userId = req.user.id; // ID пользователя из токена

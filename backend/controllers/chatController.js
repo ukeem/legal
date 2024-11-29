@@ -2,6 +2,7 @@ const fs = require('fs');
 const mammoth = require('mammoth');
 require('dotenv').config();
 const OpenAI = require("openai");
+const pdfParse = require('pdf-parse');
 
 const openai = new OpenAI({
     apiKey: process.env.API_KEY || "ВАШ_API_KEY",
@@ -23,14 +24,21 @@ exports.sendMessageToChat = async (req, res) => {
                 let content = '';
 
                 if (file.mimetype.startsWith('text/') || file.mimetype === 'application/json') {
+                    // Чтение текстовых файлов и JSON
                     content = fs.readFileSync(file.path, 'utf8');
                 } else if (file.mimetype === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+                    // Чтение .docx файлов
                     const result = await mammoth.extractRawText({ path: file.path });
                     content = result.value;
+                } else if (file.mimetype === 'application/pdf') {
+                    // Чтение PDF файлов
+                    const pdfBuffer = fs.readFileSync(file.path); // Чтение PDF в буфер
+                    const pdfData = await pdfParse(pdfBuffer); // Извлечение текста из PDF
+                    content = pdfData.text;
                 } else {
                     content = `The file type "${file.mimetype}" is not supported.`;
                 }
-
+    
                 messages.push({
                     role: 'user',
                     content: `File: ${file.originalname}\n${content}`,
@@ -43,7 +51,7 @@ exports.sendMessageToChat = async (req, res) => {
         const response = await openai.chat.completions.create({
             model: 'gpt-4o',
             messages: [
-                { role: 'system', content: 'Process the submitted text and/or files.' },
+                { role: 'system', content: 'Ты юрист. Давай ответы только по юридическим вопросам. Пиши только на русском языке' },
                 ...messages,
             ],
         });

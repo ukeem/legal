@@ -92,30 +92,6 @@ exports.confirmRegistration = async (req, res) => {
     }
 };
 
-
-
-// Сброс пароля
-// exports.resetPassword = async (req, res) => {
-//     const { email } = req.body;
-
-//     try {
-//         // Проверка существования email
-//         const user = await User.findOne({ email });
-//         if (!user) {
-//             return res.status(404).json({ message: 'Email не найден' });
-//         }
-
-//         // Генерация ссылки сброса пароля
-//         const resetLink = `${FRONTEND_URL}/new-password?e=${encodeURIComponent(email)}`;
-//         await sendEmail(email, 'Reset Password', `Click <a href="${resetLink}">here</a> to reset your password.`);
-
-//         res.status(200).json({ message: 'Reset password email sent' });
-//     } catch (err) {
-//         console.error("Ошибка сервера:", err); // Логирование ошибок
-//         res.status(500).json({ message: "Ошибка сервера" });
-//     }
-// };
-
 exports.resetPassword = async (req, res) => {
     const { email } = req.body;
 
@@ -200,19 +176,20 @@ exports.login = async (req, res) => {
             return res.status(401).json({ message: 'Неверный пароль' });
         }
 
-        // Генерация JWT токена
+        // Генерируем токен
         const token = jwt.sign(
-            { id: user._id, email: user.email },
+            { id: user._id, email: user.email, role: user.role },
             process.env.JWT_SECRET,
-            { expiresIn: "1d" }
+            { expiresIn: '1d' }
         );
 
         res.status(200).json({
-            message: "Login successful",
+            message: 'Login successful',
             token,
             user: {
                 id: user._id,
                 email: user.email,
+                role: user.role, // Возвращаем роль
             },
         });
     } catch (err) {
