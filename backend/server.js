@@ -17,35 +17,36 @@ connectDB();
 
 // Задание для проверки истекших подписок
 cron.schedule('0 0 * * *', async () => {
-    console.log('Запуск проверки истекших подписок...');
+	console.log('Запуск проверки истекших подписок...');
 
-    try {
-        // Текущая дата
-        const currentDate = new Date();
+	try {
+		// Текущая дата
+		const currentDate = new Date();
 
-        // Найти пользователей с активной подпиской
-        const usersWithActiveSubscriptions = await User.find({ 'subscription.isActive': true });
+		// Найти пользователей с активной подпиской
+		const usersWithActiveSubscriptions = await User.find({ 'subscription.isActive': true });
 
-        for (const user of usersWithActiveSubscriptions) {
-            const expirationDate = new Date(user.subscription.startDate);
-            expirationDate.setDate(expirationDate.getDate() + user.subscription.durationDays);
+		for (const user of usersWithActiveSubscriptions) {
+			const expirationDate = new Date(user.subscription.startDate);
+			expirationDate.setDate(expirationDate.getDate() + user.subscription.durationDays);
 
-            // Проверка, истекла ли подписка
-            if (currentDate >= expirationDate) {
-                // Снятие подписки
-                user.subscription.isActive = false;
-                user.subscription.startDate = null;
-                user.subscription.durationDays = null;
+			// Проверка, истекла ли подписка
+			if (currentDate >= expirationDate) {
+				// Снятие подписки
+				user.subscription.isActive = false;
+				user.subscription.startDate = null;
+				user.subscription.durationDays = null;
+				user.balance = 0;
 
-                await user.save();
-                console.log(`Подписка деактивирована для пользователя: ${user.email}`);
-            }
-        }
+				await user.save();
+				console.log(`Подписка деактивирована для пользователя: ${user.email}`);
+			}
+		}
 
-        console.log('Проверка истекших подписок завершена.');
-    } catch (err) {
-        console.error('Ошибка при проверке подписок:', err);
-    }
+		console.log('Проверка истекших подписок завершена.');
+	} catch (err) {
+		console.error('Ошибка при проверке подписок:', err);
+	}
 });
 
 const app = express();

@@ -1,11 +1,15 @@
 const express = require('express');
 const { createRequest,
-        addMessage,
-        addAIResponse,
-        addAttempts,
-        getAttempts,
-        getMessages,
-        getAiResponses, } = require('../controllers/requestController');
+	addMessage,
+	addAIResponse,
+	addAttempts,
+	getAttempts,
+	getMessages,
+	getAiResponses,
+	getThreadId,
+	deleteRequest,
+	deleteRequestAll,
+	getRequests } = require('../controllers/requestController');
 const authMiddleware = require('../middleware/authMiddleware');
 
 const router = express.Router();
@@ -30,5 +34,14 @@ router.get('/requests/:requestId/messages', authMiddleware, getMessages);
 
 // Получение ответов AI
 router.get('/requests/:requestId/ai-responses', authMiddleware, getAiResponses);
+
+// Получение ответов AI
+router.get('/requests/:requestId/threadId', authMiddleware, getThreadId);
+
+router.get('/get-requests', authMiddleware, getRequests);
+
+router.delete('/requests/:id', authMiddleware, deleteRequest);
+
+router.delete('/requests-all/', authMiddleware, deleteRequestAll);
 
 module.exports = router;
