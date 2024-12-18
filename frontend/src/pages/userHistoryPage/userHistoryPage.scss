@@ -1,0 +1,39 @@
+/** @format */
+table,
+th,
+td {
+    border: 1px solid #bdbdbd;
+    border-collapse: collapse;
+    padding: 20px;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+        padding: 4px;
+    }
+}
+table {
+    width: 100%;
+}
+td {
+    button {
+        width: 100%;
+        background-color: #212121;
+        border: 1px solid #212121;
+        color: #fff;
+        padding: 8px;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &:first-child {
+            margin-bottom: 8px;
+            background-color: #e65100;
+            border: 1px solid #e65100;
+        }
+    }
+
+    &:first-child {
+        font-weight: bold;
+        color: #e65100;
+        text-align: center;
+    }
+}

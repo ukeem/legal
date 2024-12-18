@@ -1,0 +1,201 @@
+/** @format */
+
+.container.request {
+    max-width: 100%;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    gap: 20px;
+    height: 100%;
+    min-height: auto;
+    position: relative;
+    padding: 0;
+
+    .error {
+        position: absolute;
+        background-color: #e65100;
+        padding: 20px;
+        color: #fff;
+        width: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 68px;
+        border-radius: 4px;
+        text-align: center;
+
+        @media (max-width: 768px) {
+            bottom: 58px;
+        }
+    }
+    .chat-container {
+        width: 100%;
+        flex: 1;
+        border: 1px solid #bdbdbd;
+        background-color: #fff;
+        padding: 20px;
+        overflow-y: auto;
+        border-radius: 4px;
+
+        .message {
+            padding: 20px;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 150%;
+            color: #212121;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            position: relative;
+            white-space: pre-wrap; /* Сохраняет переносы строк */
+            word-wrap: break-word; /* Разрывает длинные слова */
+            overflow-wrap: break-word; /* Совместимость с разными браузерами */
+            max-width: 100%; /* Предотвращает выход текста за пределы */
+            &.user {
+                margin-left: 20px;
+                padding-left: 40px;
+                background-color: #f5f5f5;
+
+                @media (max-width: 768px) {
+                    padding-left: 30px;
+                }
+            }
+            &.assistant {
+                margin-right: 20px;
+                padding-right: 40px;
+                border: 1px solid #bdbdbd;
+
+                @media (max-width: 768px) {
+                    padding-right: 30px;
+                }
+            }
+            svg {
+                width: 40px;
+                height: 40px;
+            }
+
+            .userSvg {
+                position: absolute;
+                left: -20px;
+                top: 20px;
+
+                @media (max-width: 768px) {
+                    top: 30px;
+                }
+            }
+
+            .aiSvg {
+                position: absolute;
+                right: -20px;
+                top: 20px;
+            }
+
+            h1,
+            h2,
+            h3 {
+                font-weight: bold;
+                margin: 1em 0 0.5em;
+            }
+
+            p {
+                margin: 0.5em 0;
+            }
+
+            pre {
+                background-color: #f6f8fa;
+                padding: 1em;
+                border-radius: 4px;
+                overflow-x: auto;
+            }
+
+            code {
+                background-color: #f3f3f3;
+                padding: 0.2em 0.4em;
+                border-radius: 4px;
+                font-family: "Courier New", Courier, monospace;
+            }
+            ul,
+            ol {
+                padding-left: 20px;
+                margin: 8px 0;
+            }
+
+            &:last-child {
+                margin-bottom: 112px;
+            }
+            @media (max-width: 768px) {
+                padding: 10px;
+
+                &:last-child {
+                    margin-bottom: 146px;
+                }
+            }
+        }
+        @media (max-width: 768px) {
+            padding: 10px;
+        }
+    }
+
+    .input-container {
+        display: flex;
+        gap: 20px;
+        width: 100%;
+
+        .inputField {
+            flex: 1;
+            border: 1px solid #bdbdbd;
+            border-radius: 4px;
+            padding: 0 16px;
+            font-size: 16px;
+            height: 48px;
+            width: 100%;
+        }
+        .uploadLabel {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 0 0 auto;
+            border: 1px solid #e65100;
+            border-radius: 4px;
+            cursor: pointer;
+
+            svg {
+                fill: #e65100;
+            }
+
+            .file-count {
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: #e65100;
+                color: #fff;
+            }
+        }
+        .formButton {
+            flex: 0 0 auto;
+            width: 200px;
+
+            @media (max-width: 768px) {
+                width: 48px;
+
+                .counter {
+                    position: absolute;
+                    right: -8px;
+                    top: -8px;
+                }
+                .value {
+                    display: none;
+                }
+            }
+        }
+        @media (max-width: 768px) {
+            gap: 10px;
+        }
+    }
+    @media (max-width: 768px) {
+        gap: 10px;
+    }
+}

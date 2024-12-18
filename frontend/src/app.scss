@@ -1,0 +1,125 @@
+/** @format */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    line-height: 150%;
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    color: #212121;
+}
+form {
+    width: 320px;
+}
+
+.container {
+    width: 100%;
+    max-width: 320px;
+    min-height: 100vh;
+    padding: 0 10px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container.desktop {
+    max-width: 1200px;
+    flex-direction: row;
+}
+
+.h1 {
+    color: #212121;
+    font-size: 20px;
+    line-height: 140%;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.h2 {
+    color: #212121;
+    font-size: 20px;
+    line-height: 140%;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.underForm {
+    width: 320px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    padding-top: 12px;
+
+    a {
+        border-bottom: 1px dashed #e65100;
+        text-decoration: none;
+        color: #e65100;
+        transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+
+        &:hover {
+            color: #212121;
+            border-color: #212121;
+        }
+    }
+}
+
+.descr {
+    line-height: 150%;
+    margin-bottom: 24px;
+    text-align: center;
+    width: 100%;
+    max-width: 560px;
+    gap: 4px;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 100%;
+    text-align: center;
+    color: #212121;
+
+    strong {
+        color: #bdbdbd;
+        font-weight: 400;
+        font-size: 16px;
+    }
+}
+
+.material-symbols-outlined {
+    font-size: 20px;
+}
+
+.container.mobile {
+    max-width: 320px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+}
+.preloader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100000;
+}

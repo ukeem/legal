@@ -1,0 +1,92 @@
+/** @format */
+
+.tariffs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+
+    .tariff {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: calc((100% - 40px) / 3);
+        background-color: #fff;
+        border-radius: 4px;
+        align-items: center;
+
+        .tariff__countReq {
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 100%;
+            text-align: center;
+            color: #fff;
+            background-color: #e65100;
+            border: 1px solid #e65100;
+            border-radius: 24px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .tariff__price {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 32px;
+            line-height: 100%;
+
+            .numPrice {
+                color: #212121;
+            }
+
+            .symPrice {
+                color: #bdbdbd;
+                text-wrap: nowrap;
+            }
+        }
+        .linkButton {
+            justify-content: center;
+        }
+
+        &.unlim {
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+
+            .tariff__countReq {
+                width: 100%;
+                max-width: 320px;
+                color: #e65100;
+                background-color: #fff;
+            }
+
+            .linkButton {
+                width: 100%;
+                max-width: 320px;
+            }
+
+            @media (max-width: 768px) {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            width: 100%;
+        }
+    }
+}
+
+.subscription {
+    text-align: right;
+    span {
+        font-weight: bold;
+    }
+}

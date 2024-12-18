@@ -1,0 +1,90 @@
+/** @format */
+
+.formButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    height: 48px;
+    border-radius: 4px;
+    border: 1px solid #e65100;
+    background-color: #e65100;
+    color: #fff;
+    font-size: 16px;
+    line-height: 48px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.2s ease-in-out, border 0.2s ease-in-out,
+        color 0.2s ease-in-out;
+
+    &:hover {
+        border: 1px solid #212121;
+        background-color: #212121;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.9;
+    }
+
+    &.loading {
+        cursor: not-allowed;
+    }
+
+    .counter {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        color: #e65100;
+        width: 24px;
+        height: 24px;
+        background-color: #fff;
+    }
+    .loader {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        background-color: transparent;
+        border: 3px solid #fff;
+        border-top: 3px solid #9e9e9e;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    .ripple {
+        position: absolute;
+        background-color: #fff;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        pointer-events: none;
+        animation: rippleEffect 1s 1;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rippleEffect {
+    from {
+        width: 0;
+        height: 0;
+        opacity: 0.7;
+    }
+
+    to {
+        width: 500px;
+        height: 500px;
+        opacity: 0;
+    }
+}

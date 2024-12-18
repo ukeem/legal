@@ -1,0 +1,25 @@
+/** @format */
+
+.indexPage.container {
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    .rows {
+        width: 100%;
+        max-width: 320px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        margin-bottom: 40px;
+        .rows {
+            margin: 40px auto;
+        }
+    }
+}
